@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchContacts } from './operations';
+import { fetchContacts, addContact, deleteContact } from './operations';
 
 const initialState = {   
     items: [],
@@ -9,13 +9,24 @@ const initialState = {
 
 const handlePending = (state) => {
     state.isLoading = true;
-    // state.error = '';
 }
 
-const handleFulfilledContacts = (state, { payload }) => {  // payload - масив об'єктів
+const handleFulfilledGot = (state, { payload }) => {  // payload - масив об'єктів
     state.isLoading = false;
     state.items = payload;
-    // console.log(state.items);
+}
+
+const handleFulfilledAdded = (state, { payload }) => {  
+    state.isLoading = false;
+    state.items.push(payload);
+}
+
+const handleFulfilledDeleted = (state, { payload }) => {  
+    state.isLoading = false;
+    const index = state.items.findIndex(
+        contact => contact.id === payload.id  // знаходимо серед контактів з api той, індекс якого = індексу одного переданого контакту
+    );
+    state.items.splice(index, 1); // 1й аргумент - індекс першого елемента для видалення; 2й - к-ть елементів, що видаляються
 }
 
 const handleRejected = (state, { payload }) => {
@@ -28,29 +39,12 @@ const contactsSlice = createSlice({
     initialState,
     extraReducers: (builder) => {
         builder
-            .addCase(fetchContacts.fulfilled, handleFulfilledContacts)
+            .addCase(fetchContacts.fulfilled, handleFulfilledGot)
+            .addCase(addContact.fulfilled, handleFulfilledAdded)
+            .addCase(deleteContact.fulfilled, handleFulfilledDeleted)
             .addMatcher(action => action.type.endsWith('/pending'), handlePending)
             .addMatcher(action => action.type.endsWith('/rejected'), handleRejected);
     }
 });
 
 export const contactsReducer = contactsSlice.reducer;
-   
-        // addContact: {
-        //     reducer(state, action) {
-        //         state.items.push(action.payload);
-        //     },
-        //     prepare(name, number) {
-        //         return {
-        //             payload: {
-        //                 id: nanoid(),
-        //                 name,
-        //                 number,
-        //             }
-        //         };
-        //     },
-        // },
-        // deleteContact(state, action){
-        //     const index = state.items.findIndex(contact => contact.id === action.payload);
-        //     state.items.splice(index, 1); // 1й аргумент - індекс першого елемента для видалення; 2й - к-ть елементів, що видаляються
-        // }

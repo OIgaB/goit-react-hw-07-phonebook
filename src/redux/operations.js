@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getContacts } from '../services/contacts-api';
+import { getContacts, postContact, excludeContact } from '../services/contacts-api';
 
 export const fetchContacts = createAsyncThunk(
     'contacts/fetchAll',
@@ -13,5 +13,26 @@ export const fetchContacts = createAsyncThunk(
     }
 );
 
-// addContact - додавання контакту (метод POST). Базовий тип екшену "contacts/addContact".
-// deleteContact - видалення контакту (метод DELETE). Базовий тип екшену "contacts/deleteContact".
+export const addContact = createAsyncThunk(
+    'contacts/addContact',
+    async (newContact, { rejectWithValue}) => { 
+        try {
+            const data = await postContact(newContact);
+            return data; 
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }
+    }
+);
+
+export const deleteContact = createAsyncThunk(
+    'contacts/deleteContact',
+    async (contactId, { rejectWithValue}) => { 
+        try {
+            const data = await excludeContact(contactId);
+            return data; 
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }
+    }
+);

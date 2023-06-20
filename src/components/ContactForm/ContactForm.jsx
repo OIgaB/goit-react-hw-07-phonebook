@@ -28,8 +28,8 @@ export const ContactForm = () => {
     const handleFormSubmit = (event) => {
         event.preventDefault();
 
-        const inputName = event.target.elements.name.value;
-        const inputNumber = event.target.elements.number.value;
+        const inputName = event.target.elements.name.value.trim();
+        const inputNumber = event.target.elements.number.value.trim();
 
         checkNameClone(inputName, inputNumber);
         event.target.reset();

@@ -6,14 +6,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { ListContainer, Contact, Name, Number, Wrapper, Button } from "./styled";
 
 
-export const ContactList = () => {    // contacts - масив об'єктів 
+export const ContactList = ({ contacts }) => {    // contacts - масив об'єктів 
 
-    const { items: contacts, loading, error } = useSelector(state => state.contacts); // дістаємо дані зі стейта
+    const { loading, error } = useSelector(state => state.contacts); // дістаємо дані зі стейта
 
     const dispatch = useDispatch();
 
-
     console.log('ContactList:', contacts);
+    
     return (
         <>
             {error && <h2>{error}</h2>}

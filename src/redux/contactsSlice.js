@@ -42,6 +42,7 @@ const contactsSlice = createSlice({
             .addCase(fetchContacts.fulfilled, handleFulfilledGot)
             .addCase(addContact.fulfilled, handleFulfilledAdded)
             .addCase(deleteContact.fulfilled, handleFulfilledDeleted)
+            //спільні ф-ції обробки стану pending/rejected:
             .addMatcher(action => action.type.endsWith('/pending'), handlePending)
             .addMatcher(action => action.type.endsWith('/rejected'), handleRejected);
     }

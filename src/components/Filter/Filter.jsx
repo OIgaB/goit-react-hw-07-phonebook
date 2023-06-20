@@ -1,4 +1,4 @@
-// Фільтр пошуку у списку контактів
+//Фільтр пошуку у списку контактів
 
 // import { useDispatch } from "react-redux";
 // import { setFilter } from "../../redux/filterSlice";

@@ -1,7 +1,6 @@
 // Форма додавання контактів. Це статична форма - не змінна (при відправці викликає ф-цію зміни state)
-
-import { useSelector, useDispatch } from "react-redux";
-// import { addContact } from "../../redux/contactsSlice";            
+import { addContact } from "redux/operations";
+import { useSelector, useDispatch } from "react-redux";          
 import { Form, Input, Button } from "./styled";
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
@@ -9,8 +8,8 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 export const ContactForm = () => {       
 
     const contacts = useSelector(state => state.contacts.items); // отримуємо масив об'єктів зі стору
-    console.log(contacts);
-    // const dispatch = useDispatch();
+    
+    const dispatch = useDispatch();
 
     const checkNameClone = (inputName, inputNumber) => { 
         const nameClone = contacts.find((contact) => ( // вертає об'єкт з ім'ям, що повторюється (якщо є)
@@ -22,7 +21,7 @@ export const ContactForm = () => {
           return;
         } 
         
-        // dispatch(addContact(newName, newNumber));  //відправка даних в contactsSlice для записування в стор
+        dispatch(addContact(inputName, inputNumber));  //відправка даних в contactsSlice -> operation -> contacts-api -> на бекенд
     };
 
 

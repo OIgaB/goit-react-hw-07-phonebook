@@ -1,28 +1,30 @@
 // Форма додавання контактів. Це статична форма - не змінна (при відправці викликає ф-цію зміни state)
 
 import { useSelector, useDispatch } from "react-redux";
-import { addContact } from "../../redux/contactsSlice";            
+// import { addContact } from "../../redux/contactsSlice";            
 import { Form, Input, Button } from "./styled";
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
+// import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 
 export const ContactForm = () => {       
 
-    const contacts = useSelector(state => state.contacts.array); // отримуємо масив об'єктів зі стору
+    const contacts = useSelector(state => state.contacts.items); // отримуємо масив об'єктів зі стору
 
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
     const checkNameClone = (newName, newNumber) => { 
-        const nameClone = contacts.find((contact) => ( // вертає об'єкт з ім'ям, що повторюється (якщо є)
-          contact.name.toLowerCase() === newName.toLowerCase()
-        ));
+        console.log(newName);
+        console.log(newNumber);
+        // const nameClone = contacts.find((contact) => ( // вертає об'єкт з ім'ям, що повторюється (якщо є)
+        //   contact.name.toLowerCase() === newName.toLowerCase()
+        // ));
     
-        if(nameClone) {
-          Notify.failure(`${newName} is already in contacts`); 
-          return;
-        } 
+        // if(nameClone) {
+        //   Notify.failure(`${newName} is already in contacts`); 
+        //   return;
+        // } 
         
-        dispatch(addContact(newName, newNumber));  //відправка даних в contactsSlice для записування в стор
+        // dispatch(addContact(newName, newNumber));  //відправка даних в contactsSlice для записування в стор
     };
 
 

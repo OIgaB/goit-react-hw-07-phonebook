@@ -1,13 +1,14 @@
 // Форма додавання контактів. Це статична форма - не змінна (при відправці викликає ф-цію зміни state)
 import { addContact } from "redux/operations";
-import { useSelector, useDispatch } from "react-redux";          
+import { useSelector, useDispatch } from "react-redux";  
+import { getContacts } from "../../redux/selectors";        
 import { Form, Input, Button } from "./styled";
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 
 export const ContactForm = () => {       
 
-    const contacts = useSelector(state => state.contacts.items); // отримуємо масив об'єктів зі стору
+    const { items: contacts } = useSelector(getContacts); // отримуємо масив об'єктів зі стору
     
     const dispatch = useDispatch();
 

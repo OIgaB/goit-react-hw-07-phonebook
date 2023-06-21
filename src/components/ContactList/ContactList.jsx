@@ -1,14 +1,22 @@
 //Рендер списку контактів <ul> та його 1го елемента <li>
 
-import PropTypes from 'prop-types';
+import { useMemo } from "react";
 import { deleteContact } from 'redux/operations';
 import { useSelector, useDispatch } from "react-redux"; 
+import { getContacts, getFilter } from "../../redux/selectors";
 import { ListContainer, Contact, Wrapper, Name, Details, Image, Button } from "./styled";
+import PropTypes from 'prop-types';
 
 
-export const ContactList = ({ contacts }) => {    // contacts - масив об'єктів 
+export const ContactList = () => {    // contacts - масив об'єктів 
 
-    const { loading, error } = useSelector(state => state.contacts); // дістаємо дані зі стейта
+    const { items: contacts, loading, error } = useSelector(getContacts); // дістаємо дані зі стейта
+    const filter = useSelector(getFilter); // рядок зі стору
+
+
+    const filteredContacts = useMemo(() => { // для важких обчислень/фільтрацій, щоб не було перерендеру
+        return contacts.filter(({ name }) => name.toLowerCase().includes(filter.toLowerCase())) 
+    }, [contacts, filter]);
 
     const dispatch = useDispatch();
     
@@ -16,9 +24,9 @@ export const ContactList = ({ contacts }) => {    // contacts - масив об'
         <>
             {error && <h2>{error}</h2>}
             {loading && <h2>Loading...</h2>}                                  
-            {contacts.length > 0 && (
+            {filteredContacts.length > 0 && (
                 <ListContainer>  
-                    {contacts.map(({ id, name, phone, email, birthdate, avatar }) => (
+                    {filteredContacts.map(({ id, name, phone, email, birthdate, avatar }) => (
                         <Contact key={id}>                         
                             <Wrapper>
                                 <Name>{name}</Name>

@@ -6,7 +6,8 @@ export const fetchContacts = createAsyncThunk(
     async (_, { rejectWithValue}) => { 
         try {
             const data = await getContacts();
-            const sortedByName = data.sort((a, b) => a.name.localeCompare(b.name)); // inAlphabeticalOrder
+            
+            const sortedByName = data.sort((a, b) => a.name.localeCompare(b.name)); // inAlphabeticalOrder            
             return sortedByName; 
         } catch (error) {
             return rejectWithValue(error.message);
@@ -19,7 +20,7 @@ export const addContact = createAsyncThunk(
     async (newContact, { rejectWithValue}) => { 
         try {
             const data = await postContact(newContact);
-            console.log(newContact);
+            // console.log(newContact);
             return data; 
         } catch (error) {
             return rejectWithValue(error.message);

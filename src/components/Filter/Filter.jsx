@@ -1,6 +1,6 @@
 // Фільтр пошуку у списку контактів
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setFilter } from "../../redux/filterSlice";
 import { Input } from '../ContactForm/styled';
 import { Container } from "./styled";

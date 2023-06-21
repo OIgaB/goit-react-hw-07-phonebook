@@ -18,3 +18,11 @@ code {
 ul {
   list-style: none;
 }
+
+a {
+  text-decoration: none;
+  color: rgb(240,220,130);
+  &:hover{
+    color: rgb(238, 197, 17);
+  }
+}

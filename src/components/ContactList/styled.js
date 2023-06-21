@@ -22,7 +22,7 @@ export const Contact = styled.li`
 `;
 
 export const Wrapper = styled.div`
-    min-height: 80px;
+    height: 220px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -37,9 +37,15 @@ export const Name = styled.p`
 `;
 
 export const Details = styled.p`
-    font-size: 20px;
+    margin: 0;
+    font-size: 13px;
     font-style: italic;
     color: rgb(240,220,130);
+`;
+
+export const Image = styled.img`
+    margin-top: 5px;
+    border-radius: 4px;
 `;
 
 export const Button = styled.button`

@@ -1,9 +1,9 @@
 //Рендер списку контактів <ul> та його 1го елемента <li>
 
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { deleteContact } from 'redux/operations';
 import { useSelector, useDispatch } from "react-redux"; 
-import { ListContainer, Contact, Name, Details, Wrapper, Button } from "./styled";
+import { ListContainer, Contact, Wrapper, Name, Details, Image, Button } from "./styled";
 
 
 export const ContactList = ({ contacts }) => {    // contacts - масив об'єктів 
@@ -23,9 +23,9 @@ export const ContactList = ({ contacts }) => {    // contacts - масив об'
                             <Wrapper>
                                 <Name>{name}</Name>
                                 <Details>tel: <a href='tel:phone'>{phone}</a></Details>
-                                <Details>email: <a href='mailto:email'>{email}</a></Details>
+                                <Details>email: <br/><a href='mailto:email'>{email}</a></Details>
                                 <Details>birthdate: {birthdate.slice(0, 10)}</Details> {/* //прийшло: 1997-10-29T09:04:16.334Z  стало: 1997-10-29 */}
-                                <img src={avatar} alt="avatar"/>
+                                <Image src={avatar} alt="avatar"/>
                             </Wrapper>
                             <Button type='button' onClick={() => dispatch(deleteContact(id))}>Delete</Button>
                         </Contact>      
@@ -43,10 +43,13 @@ export const ContactList = ({ contacts }) => {    // contacts - масив об'
 // other: false
 
 
-// ContactList.propTypes = {
-//     contacts: PropTypes.arrayOf(PropTypes.shape ({
-//         id: PropTypes.string.isRequired,
-//         name: PropTypes.string.isRequired,
-//         number: PropTypes.string.isRequired,
-//     })),
-// };
+ContactList.propTypes = {
+    contacts: PropTypes.arrayOf(PropTypes.shape ({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        phone: PropTypes.string.isRequired,
+        email: PropTypes.string.isRequired,
+        birthdate: PropTypes.string.isRequired,
+        avatar: PropTypes.string.isRequired,
+    })),
+};

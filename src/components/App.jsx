@@ -19,7 +19,7 @@ export const App = () => {
   // Функція, яка шукає співпадіння введеного в фільтр імені з іменами об'єктів масиву, який в state
   // повертає новий масив знайдених об'єктів (якщо фільтр в state пустий, то новий масив контактів не створиться, 
   // а з ф-ції повернеться масив контактів, що в state)
-  
+
   const getVisibleContacts = () => {
       return contacts.filter(({ name }) => 
       name.toLowerCase().includes(filter.toLowerCase()) 

@@ -7,13 +7,11 @@ import { Container } from "./styled";
 
 
 export const Filter = () => { 
-    const filter = useSelector(state => state.filter)
     const dispatch = useDispatch();
 
     const handleChange = ({ target: {value}}) => {
         dispatch(setFilter(value.trim()));  //відправка даних в filterSlice для записування в стор 
     };
-    console.log(filter);
 
     return (
         <Container>

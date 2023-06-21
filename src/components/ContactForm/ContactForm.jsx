@@ -11,17 +11,18 @@ export const ContactForm = () => {
     
     const dispatch = useDispatch();
 
-    const checkNameClone = (inputName, inputNumber) => { 
+    const checkNameClone = (name, phone, email, birthdate) => { 
         const nameClone = contacts.find((contact) => ( // вертає об'єкт з ім'ям, що повторюється (якщо є)
-          contact.name.toLowerCase() === inputName.toLowerCase()
+          contact.name.toLowerCase() === name.toLowerCase()
         ));
     
         if(nameClone) {
-          Notify.failure(`${inputName} is already in contacts`); 
+          Notify.failure(`${name} is already in contacts`); 
           return;
         } 
+        const newContact = {name, phone, email, birthdate};
         
-        dispatch(addContact(inputName, inputNumber));  //відправка даних в contactsSlice -> operation -> contacts-api -> на бекенд
+        dispatch(addContact(newContact));  //відправка даних в contactsSlice -> operation -> contacts-api -> на бекенд
     };
 
 
@@ -30,8 +31,17 @@ export const ContactForm = () => {
 
         const inputName = event.target.elements.name.value.trim();
         const inputNumber = event.target.elements.number.value.trim();
+        let inputEmail = event.target.elements.email.value.trim();
+        let inputBirthdate = event.target.birthdate.value;
 
-        checkNameClone(inputName, inputNumber);
+        if(inputEmail === '') {
+            inputEmail = 'N/A';
+        } 
+        if(inputBirthdate === '') {
+            inputBirthdate = 'N/A';
+        } 
+        
+        checkNameClone(inputName, inputNumber, inputEmail, inputBirthdate);
         event.target.reset();
     }
 
@@ -54,10 +64,33 @@ export const ContactForm = () => {
                 <Input
                     type="tel"
                     name="number"
-                    // pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+                    pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+                    // pattern="[\+]\d{2}\s[\(]\d{3}[\)]\s\d{3}[\-]\d{2}[\-]\d{2}" 
+                    // title="+38 (050) 222-22-22" 
                     title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
                     placeholder="459-12-56"
                     required
+                />
+            </label>
+            <label>
+                Email
+                <Input
+                    type="email"
+                    name="email"
+                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" 
+                    title="characters@characters.tt (at least 2 letters 'a-z' in the end)" 
+                    placeholder="oles.honchar@gmail.com"
+                />
+            </label>
+            <label>
+                Birthdate
+                <Input
+                    type="date"
+                    name="birthdate"
+                    pattern="\d{1,2}/\d{1,2}/\d{4}" 
+                    title="dd.mm.yyyy" 
+                    // placeholder="01.01.1980"
+                    min="1923-01-01" 
                 />
             </label>
             <Button>Add contact</Button>

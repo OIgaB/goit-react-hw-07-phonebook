@@ -3,7 +3,7 @@
 // import PropTypes from 'prop-types';
 import { deleteContact } from 'redux/operations';
 import { useSelector, useDispatch } from "react-redux"; 
-import { ListContainer, Contact, Name, Number, Wrapper, Button } from "./styled";
+import { ListContainer, Contact, Name, Details, Wrapper, Button } from "./styled";
 
 
 export const ContactList = ({ contacts }) => {    // contacts - масив об'єктів 
@@ -11,8 +11,6 @@ export const ContactList = ({ contacts }) => {    // contacts - масив об'
     const { loading, error } = useSelector(state => state.contacts); // дістаємо дані зі стейта
 
     const dispatch = useDispatch();
-
-    console.log('ContactList:', contacts);
     
     return (
         <>
@@ -20,11 +18,14 @@ export const ContactList = ({ contacts }) => {    // contacts - масив об'
             {loading && <h2>Loading...</h2>}                                  
             {contacts.length > 0 && (
                 <ListContainer>  
-                    {contacts.map(({ id, name, phone }) => (
+                    {contacts.map(({ id, name, phone, email, birthdate, avatar }) => (
                         <Contact key={id}>                         
                             <Wrapper>
                                 <Name>{name}</Name>
-                                <Number>{phone}</Number>
+                                <Details>tel: <a href='tel:phone'>{phone}</a></Details>
+                                <Details>email: <a href='mailto:email'>{email}</a></Details>
+                                <Details>birthdate: {birthdate.slice(0, 10)}</Details> {/* //прийшло: 1997-10-29T09:04:16.334Z  стало: 1997-10-29 */}
+                                <img src={avatar} alt="avatar"/>
                             </Wrapper>
                             <Button type='button' onClick={() => dispatch(deleteContact(id))}>Delete</Button>
                         </Contact>      
@@ -35,18 +36,11 @@ export const ContactList = ({ contacts }) => {    // contacts - масив об'
     );
 }
 
-// friends: false
-// avatar: "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/832.jpg"
-// birthdate: "1978-04-11T04:54:07.680Z"
-// colleagues: false
-// createdAt: "2023-06-19T03:43:53.369Z"
-// email: "Van29@yahoo.com"
-// family: false
-// id: "1"
-// name: "Mrs. Shari Johns Jr."
-// other: false
-// phone: "1-244-354-4204 x6315"
 // work: "Dickens - Beatty"
+// family: false
+// colleagues: false
+// friends: false
+// other: false
 
 
 // ContactList.propTypes = {

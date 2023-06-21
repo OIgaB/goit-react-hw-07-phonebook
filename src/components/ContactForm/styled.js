@@ -12,6 +12,28 @@ export const Form = styled.form`
     text-align: left;
 `;
 
+
+// для лейбла
+// color: rgba(0, 0, 0, 0.6);
+// font-weight: 400;
+// font-size: 
+// padding: 0px;
+// display: block;
+// transform-origin: left top;
+// white-space: nowrap;
+// overflow: hidden;
+// text-overflow: ellipsis;
+// max-width: calc(100% - 24px);
+// position: absolute;
+// left: 0px;
+// top: 0px;
+// transform: translate(14px, 16px) scale(1);
+// transition: color 200ms cubic-bezier(0, 0, 0.2, 1) 0ms, transform 200ms cubic-bezier(0, 0, 0.2, 1) 0ms, max-width 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+// z-index: 1;
+// pointer-events: none;
+
+
+
 export const Input = styled.input`
     display: block;
     margin-top: 5px;

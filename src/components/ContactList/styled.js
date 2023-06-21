@@ -36,7 +36,7 @@ export const Name = styled.p`
     margin-bottom: 5px;
 `;
 
-export const Number = styled.span`
+export const Details = styled.p`
     font-size: 20px;
     font-style: italic;
     color: rgb(240,220,130);
